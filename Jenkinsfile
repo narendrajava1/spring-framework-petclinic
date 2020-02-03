@@ -5,7 +5,7 @@ node(label: 'master') {
     def repoBranch='master'
     mvnHome = tool 'maven'
     def pom = "pom.xml"
-    def goalClean = "clean compile install"
+    def goalClean = "clean"
     def goalCompile = "compile"
     def goalInstall ="install"
     
@@ -14,15 +14,15 @@ node(label: 'master') {
         
     }
     //MVN Build stages
-    stage('Maven Build and Push to Artifactory'){
-       mavenBuild "${goal}"
+    stage('Maven clean'){
+       mavenBuild "${goalClean}"
     }
  
-    stage('Maven Build and Push to Artifactory'){
-       mavenBuild "${goal}"
+    stage('Maven compile'){
+       mavenBuild "${goalCompile}"
     }
  
-    stage('Maven Build and Push to Artifactory'){
-       mavenBuild "${goal}"
+    stage('Maven install'){
+       mavenBuild "${goalInstall}"
     }
 }
