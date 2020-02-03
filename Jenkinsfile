@@ -8,7 +8,7 @@ node(label: 'master') {
     def goalClean = "clean"
     def goalCompile = "compile"
     def goalInstall ="install"
-    
+    def scannerHome = tool 'SonarQubeScanner'    
     stage('Git-Checkout'){
         gitClone "${gitURL}","${repoBranch}"
         
@@ -27,9 +27,6 @@ node(label: 'master') {
     }
     
     stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'SonarQubeScanner'
-    }
          withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
